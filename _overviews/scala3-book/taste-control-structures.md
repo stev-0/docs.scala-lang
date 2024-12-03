@@ -353,18 +353,19 @@ val result = i match
 {% tab 'Scala 2' for=match-expression_2 %}
 
 ```scala
-val p = Person("Fred")
+case class Person(name: String, mood: String)
 
-// later in the code
-p match {
-  case Person(name) if name == "Fred" =>
+def speak(p: Person) = p match
+{
+  case Person(name, mood) if name == "Fred" & mood == "good" =>
     println(s"$name says, Yubba dubba doo")
-
-  case Person(name) if name == "Bam Bam" =>
-    println(s"$name says, Bam bam!")
-
+  case Person(name, mood) if name == "Bam Bam" => println(s"$name says, Bam bam!")
   case _ => println("Watch the Flintstones!")
 }
+
+speak(Person("Fred", "good")) // "Fred says, Yubba dubba doo"
+speak(Person("Bam Bam", "bad")) // "Bam Bam says, Bam bam!"
+
 ```
 
 {% endtab %}
@@ -372,17 +373,16 @@ p match {
 {% tab 'Scala 3' for=match-expression_2 %}
 
 ```scala
-val p = Person("Fred")
+case class Person(name: String, mood: String)
 
-// later in the code
-p match
-  case Person(name) if name == "Fred" =>
+def speak(p: Person) = p match
+  case Person(name, mood) if name == "Fred" & mood == "good" =>
     println(s"$name says, Yubba dubba doo")
-
-  case Person(name) if name == "Bam Bam" =>
-    println(s"$name says, Bam bam!")
-
+  case Person(name, mood) if name == "Bam Bam" => println(s"$name says, Bam bam!")
   case _ => println("Watch the Flintstones!")
+
+speak(Person("Fred", "good")) // "Fred says, Yubba dubba doo"
+speak(Person("Bam Bam", "bad")) // "Bam Bam says, Bam bam!"
 ```
 
 {% endtab %}
